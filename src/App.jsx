@@ -150,8 +150,10 @@ var BRAND={
   default:{c:{bg:"#0F766E",lt:"#f0fdfa",bd:"#99f6e4",tx:"#0F766E"},a:{bg:"#8B5CF6",lt:"#f5f3ff",bd:"#c4b5fd",tx:"#7C3AED"},d:{bg:"#F97316",lt:"#fff7ed",bd:"#fed7aa",tx:"#EA580C"},accent:"#34d399"},
 };
 
-var SHORTENER_PROXY = "https://utm.widebot.ai";
-
+var SHORTIO_KEYS = {
+  "go.widebot.ai": "pk_KuaTyiHcnAh8j7x1",
+  "go.hulul.ai": "pk_NUHE90GmMSe4KJCL"
+};
 export default function App(){
   var _=useState;
   var[tab,setTab]=_("builder");
@@ -214,14 +216,15 @@ export default function App(){
   var clearH=function(){setHist([]);save("wb-utm-history",[])};
   var resetD=function(){setData(D);save("wb-utm-config",D)};
 
-  var shortenUrl=function(){
+var shortenUrl=function(){
     if(!utmUrl)return;
     var d=null;var lower=baseUrl.toLowerCase();
     if(lower.indexOf("widebot")>=0)d="go.widebot.ai";
     else if(lower.indexOf("hulul")>=0)d="go.hulul.ai";
     if(!d){setShortError("URL must contain 'widebot' or 'hulul'");return}
+    var apiKey=SHORTIO_KEYS[d];
     setShortLoading(true);setShortError("");setShortUrl("");
-    fetch(SHORTENER_PROXY,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({originalURL:utmUrl,domain:d})}).then(function(r){return r.json()}).then(function(dd){setShortLoading(false);if(dd.shortURL){setShortUrl(dd.shortURL);saveH(dd.shortURL)}else{setShortError(dd.message||dd.error||"Failed")}}).catch(function(e){setShortLoading(false);setShortError("Network error: "+e.message)});
+    fetch("https://api.short.io/links/public",{method:"POST",headers:{"accept":"application/json","Content-Type":"application/json","authorization":apiKey},body:JSON.stringify({domain:d,originalURL:utmUrl,allowDuplicates:false})}).then(function(r){return r.json()}).then(function(dd){setShortLoading(false);if(dd.shortURL){setShortUrl(dd.shortURL);saveH(dd.shortURL)}else{setShortError(dd.message||dd.error||"Failed")}}).catch(function(e){setShortLoading(false);setShortError("Network error: "+e.message)});
   };
 
   var chip=function(o,selected,onClick,color,showCat){
