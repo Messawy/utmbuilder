@@ -150,7 +150,7 @@ var BRAND={
   default:{c:{bg:"#0F766E",lt:"#f0fdfa",bd:"#99f6e4",tx:"#0F766E"},a:{bg:"#8B5CF6",lt:"#f5f3ff",bd:"#c4b5fd",tx:"#7C3AED"},d:{bg:"#F97316",lt:"#fff7ed",bd:"#fed7aa",tx:"#EA580C"},accent:"#34d399"},
 };
 
-var SHORTENER_PROXY = "https://shortener-proxy.YOUR_ACCOUNT.workers.dev";
+var SHORTENER_PROXY = "https://utmbuilder.marketing-4c6.workers.dev";
 
 export default function App(){
   var _=useState;
