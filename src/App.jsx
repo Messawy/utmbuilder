@@ -62,7 +62,7 @@ const D = {
     {code:"emrkt",full:"Email Integration",cat:"Integrations",label:"WideBot",arUrl:"https://widebot.ai/ar/integrations/email-marketing",enUrl:"https://widebot.ai/integrations/email-marketing"},
     {code:"erp",full:"ERP Integration",cat:"Integrations",label:"WideBot",arUrl:"https://widebot.ai/ar/integrations/erp",enUrl:"https://widebot.ai/integrations/erp"},
     {code:"wmkt",full:"WhatsApp Marketing",cat:"Broadcasting & Bulk",label:"Hulul",arUrl:"https://hulul.ai/products/whatsapp-automation",enUrl:"https://hulul.ai/en/products/whatsapp-automation"},
-    {code:"huhome",full:"Hulul Home Page",cat:"Home Page",label:"Hulul",arUrl:"https://hulul.ai",enUrl:"https://hulul.ai/en"},
+    {code:"huhome",full:"Hulul Home Page",cat:"Home Page",label:"Hulul",arUrl:"https://hulul.ai/?r=0",enUrl:"https://hulul.ai/en"},
     {code:"chtbot",full:"Chatbot Builder",cat:"AI Chatbot Builder",label:"Hulul",arUrl:"https://hulul.ai/products/chatbot-builder",enUrl:"https://hulul.ai/en/products/chatbot-builder"},
     {code:"sala",full:"Salla Integration",cat:"Store Automation",label:"Hulul",arUrl:"https://hulul.ai/products/integrations",enUrl:"https://hulul.ai/en/products/integrations"},
     {code:"zid",full:"Zid Integration",cat:"Store Automation",label:"Hulul",arUrl:"https://hulul.ai/products/integrations",enUrl:"https://hulul.ai/en/products/integrations"},
@@ -203,7 +203,7 @@ export default function App(){
   var pickUrl=function(code){
     setSel(function(prev){
       var n=prev.landingUrl===code?"":code;
-      if(n){var c=filtUrls.find(function(x){return x.code===n});if(c){var url=lang==="en"?c.enUrl:c.arUrl;if(url&&url.indexOf("http")!==0)url="https://"+url;if(url)setBaseUrl(url)}}
+      if(n){var c=filtUrls.find(function(x){return x.code===n});if(c){var url=lang==="en"?c.enUrl:c.arUrl;if(url&&url.indexOf("http")!==0)url="https://"+url;if(url){if(url==="https://hulul.ai"||url==="http://hulul.ai")url="https://hulul.ai/?r=0"}if(url)setBaseUrl(url)}}
       return Object.assign({},prev,{landingUrl:n});
     });
   };
