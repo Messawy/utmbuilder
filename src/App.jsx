@@ -198,12 +198,12 @@ export default function App(){
   var asFull=asOwn?(campName?asOwn+"_"+campName:asOwn):"";
   var adFull=adOwn?[adOwn,asOwn,campName].filter(Boolean).join("_"):"";
   var utmUrl="";
-  if(campName){var p=new URLSearchParams();p.set("utm_source",sel.platform||"platform");p.set("utm_medium",platObj?platObj.medium:"paid");p.set("utm_campaign",campName);if(asOwn)p.set("utm_content",asOwn);if(adOwn)p.set("utm_term",adOwn);utmUrl=(baseUrl||"https://widebot.ai")+"?"+p.toString()}
+  if(campName){var p=new URLSearchParams();p.set("utm_source",sel.platform||"platform");p.set("utm_medium",platObj?platObj.medium:"paid");p.set("utm_campaign",campName);if(asOwn)p.set("utm_content",asOwn);if(adOwn)p.set("utm_term",adOwn);utmUrl=(baseUrl||"https://widebot.ai")+(baseUrl.indexOf("?")>=0?"&":"?")+p.toString()}
 
   var pickUrl=function(code){
     setSel(function(prev){
       var n=prev.landingUrl===code?"":code;
-      if(n){var c=filtUrls.find(function(x){return x.code===n});if(c){var url=lang==="en"?c.enUrl:c.arUrl;if(url&&url.indexOf("http")!==0)url="https://"+url;if(url){if(url==="https://hulul.ai"||url==="http://hulul.ai")url="https://hulul.ai/?r=0"}if(url)setBaseUrl(url)}}
+      if(n){var c=filtUrls.find(function(x){return x.code===n});if(c){var url=lang==="en"?c.enUrl:c.arUrl;if(url&&url.indexOf("http")!==0)url="https://"+url;if(url&&url.replace(/\/$/,"")==="https://hulul.ai")url="https://hulul.ai/?r=0";if(url)setBaseUrl(url)}}
       return Object.assign({},prev,{landingUrl:n});
     });
   };
